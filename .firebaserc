@@ -1,6 +1,7 @@
 {
   "projects": {
-    "weather-graph-mf-host": "weather-graph-mf-host"
+    "weather-graph-mf-host": "weather-graph-mf-host",
+    "default": "weather-graph-mf-host"
   },
   "targets": {}
 }
