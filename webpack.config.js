@@ -2,7 +2,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin =
   require("webpack").container.ModuleFederationPlugin;
 const TerserPlugin = require("terser-webpack-plugin");
-const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack'); 
 const path = require("path");
 
@@ -132,9 +131,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
-    // new CopyPlugin({
-    //   patterns: [{from: './public', to: ''}],
-    // }),
 
     new webpack.DefinePlugin({
       'process.env.PUBLIC_URL': JSON.stringify(''),
