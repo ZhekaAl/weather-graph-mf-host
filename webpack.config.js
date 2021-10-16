@@ -1,6 +1,9 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin =
   require("webpack").container.ModuleFederationPlugin;
+const TerserPlugin = require("terser-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack'); 
 const path = require("path");
 
 // const styleRules = require('./styles');
@@ -45,16 +48,22 @@ const babelLoader = {
 
 module.exports = {
   entry: "./src/index",
-  mode: "development",
-  devServer: {
+  mode: isProd ? 'production' : 'development',
+  devServer: isProd ? undefined : {
+    hot: true,
     static: {
       directory: path.join(__dirname, "dist"),
+      publicPath: '/',
     },
     port: 3002,
   },
   output: {
     publicPath: "auto",
   },
+  optimization: isProd ? {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+   } : undefined,
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
   },
@@ -71,9 +80,6 @@ module.exports = {
         test: /\.(tsx|ts)$/,
         use: [babelLoader],
         exclude: /node_modules/,
-        // options: {
-        //   presets: ["@babel/preset-react", "@babel/preset-typescript"],
-        // },
       },
        {
         test: /\.css$/,
@@ -126,5 +132,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
+    // new CopyPlugin({
+    //   patterns: [{from: './public', to: ''}],
+    // }),
+
+    new webpack.DefinePlugin({
+      'process.env.PUBLIC_URL': JSON.stringify(''),
+     },
+    ),
   ],
 };

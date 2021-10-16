@@ -1,15 +1,3 @@
-// import * as React from "react";
-
-// import LocalButton from "./Button";
-
-// const App = () => (
-//   <div>
-//     <h1>Typescript</h1>
-//     <h2>App 2</h2>
-//     <LocalButton />
-//   </div>
-// );
-
 import './index.css';
 import './App.css';
 
@@ -35,16 +23,6 @@ function App(): React.ReactElement {
     );
 }
 
-function App2(): React.ReactElement {
-    return (
-       
-            <div className="App">
-                <Chart />
-                <LocalButton />
-            </div>
-           
-    );
-}
 
 
 export default App;
