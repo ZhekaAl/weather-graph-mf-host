@@ -49,7 +49,7 @@ export const getErrorLoadedState: (error: string) => LoadingState = (error) => {
   return state;
 };
 
-export interface CityInner {
+export interface City {
   id: number;
   name: string;
   rusName: string;
@@ -60,7 +60,6 @@ export interface CityInner {
     lat: number;
   };
 }
-export type City = CityInner;
 
 export interface Coord {
   lon: number;

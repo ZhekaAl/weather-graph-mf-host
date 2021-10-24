@@ -1,19 +1,16 @@
-import React, {ReactElement, useEffect} from 'react';
+import React, {ReactElement} from 'react';
 import {CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis} from 'recharts';
 
-import {useStatistics, useStatisticsSimpleFetch} from '../hooks/use-statistics';
+import {useStatistics} from '../hooks/use-statistics';
+import { City } from '../store/types';
 import {getDayMonth} from '../utils/utils';
 import {LoadingInfo} from './loading-info';
 import styles from './statistics.module.css';
 
-export const Chart = (): ReactElement => {
-    const {queryStatisticsCity} = useStatistics();
+
+export const Chart = ({city}: {city: City}): ReactElement => {
+    const {queryStatisticsCity} = useStatistics(city?.coord);
     // const {isLoading, isFetching, isIdle, data} = useStatisticsSimpleFetch();
-    
-
-   
-
-
     const {isLoading , isFetching, isIdle, data} = queryStatisticsCity;
 
     if (isIdle) return <LoadingInfo text="Ожидание загрузки статистики" />;
@@ -25,16 +22,18 @@ export const Chart = (): ReactElement => {
 
     const dataChart = dailyForecast?.map((el, i) => ({
         ...el,
-        dateString: i % 2 === 0 ? getDayMonth(el.dt) : '',
+        // dateString: i % 2 === 0 ? getDayMonth(el.dt) : '',
+        dateString:  getDayMonth(el.dt),
     }));
 
-    const width = (dataChart?.length ?? 0) * 20;
+    const width = (dataChart?.length ?? 0) * 40;
     return (
         <div className={styles.chartsWrapper}>
+            <h1> {city.rusName}</h1>
             <div className={styles.filters}></div>
             <LineChart
                 width={width}
-                height={300}
+                height={400}
                 data={dataChart}
                 margin={{top: 20, right: 20, bottom: 5, left: 0}}
             >

@@ -1,7 +1,6 @@
 import { useQuery, UseQueryResult } from 'react-query';
 
 import { Coord, Statistics } from '../store/types';
-
 import { fetchStatisticsCityApi } from '../api/api';
 
 import { minToMsec } from '../utils/utils';
@@ -11,10 +10,10 @@ type StatisticsCache = {
   queryStatisticsCity: UseQueryResult<Statistics, unknown>;
 };
 
-export function useStatistics(): StatisticsCache {
+export function useStatistics(coord: Coord): StatisticsCache {
   
   /* TO_DO query param  */
-  const  coord: Coord = {lat: 59.8944, lon: 30.2642};
+  // const  coord: Coord = {lat: 59.8944, lon: 30.2642};
 
   const queryStatisticsCity = useQuery(
     ['statisticsCity', coord],

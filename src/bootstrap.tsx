@@ -3,4 +3,12 @@ import * as ReactDOM from "react-dom";
 
 import App from "./App";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const city = {
+        coord: {
+          lat: 59.8944,
+          lon: 30.2642,
+        },
+        rusName: 'Санкт-Петербург',
+      };
+
+ReactDOM.render(<App city={city}/>, document.getElementById("root"));

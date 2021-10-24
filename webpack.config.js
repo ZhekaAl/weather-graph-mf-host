@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ModuleFederationPlugin =
   require("webpack").container.ModuleFederationPlugin;
 const TerserPlugin = require("terser-webpack-plugin");
@@ -6,9 +7,11 @@ const webpack = require('webpack');
 const path = require("path");
 
 // const styleRules = require('./styles');
+module.exports = (env, argv) => {
 
 
-const isProd = process.env.NODE_ENV === 'production';
+  const isProd = argv.mode === 'production';
+  const mode = isProd ? 'production' : 'development'
 
 const miniCssExtractLoader = isProd
 ? {
@@ -45,7 +48,7 @@ const babelLoader = {
   },
  };
 
-module.exports = {
+return( {
   entry: "./src/index",
   mode: isProd ? 'production' : 'development',
   devServer: isProd ? undefined : {
@@ -136,5 +139,8 @@ module.exports = {
       'process.env.PUBLIC_URL': JSON.stringify(''),
      },
     ),
+    new MiniCssExtractPlugin(),
+
   ],
-};
+})
+}
